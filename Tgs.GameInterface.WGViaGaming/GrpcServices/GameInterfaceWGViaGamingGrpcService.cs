@@ -6,20 +6,20 @@ using Tgs.ServiceUtility;
 
 namespace Tgs.GameInterface.WGViaGaming.GrpcServices;
 
-public class GameInterfaceOBetGrpcService : GameInterfaceWGViaGaming.GameInterfaceWGViaGamingBase
+public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.GameInterfaceWGViaGamingBase
 {
     private readonly ICommandService<FundInCommand> _fundInService;
     private readonly ICommandService<FundOutCommand> _fundOutService;
     private readonly IGetService<FundStatusQuery, bool> _fundStatusService;
     private readonly IQueryService<GameRecordQuery, GameRecordResult> _gameRecordService;
     private readonly IGetService<GameUrlQuery, string> _gameUrlService;
-    private readonly ILogger<GameInterfaceOBetGrpcService> _logger;
+    private readonly ILogger<GameInterfaceWGViaGamingGrpcService> _logger;
     private readonly IGetService<PlayerBalanceQuery, PlayerBalanceResult> _playerBalanceService;
     private readonly ICommandService<PlayerCreateCommand> _playerCreateService;
     private readonly ICommandService<PlayerLogoutCommand> _playerLogoutService;
 
-    public GameInterfaceOBetGrpcService(
-        ILogger<GameInterfaceOBetGrpcService> logger,
+    public GameInterfaceWGViaGamingGrpcService(
+        ILogger<GameInterfaceWGViaGamingGrpcService> logger,
         ICommandService<FundInCommand> fundInService,
         ICommandService<FundOutCommand> fundOutService,
         IGetService<FundStatusQuery, bool> fundStatusService,

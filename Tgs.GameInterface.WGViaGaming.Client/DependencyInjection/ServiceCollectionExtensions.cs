@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddGameInterfaceOBetClient(
+    public static IServiceCollection AddGameInterfaceWGViaGamingClient(
         this IServiceCollection services,
         Action<GameInterfaceWGViaGamingClientOptions, IServiceProvider> configure)
         => services
