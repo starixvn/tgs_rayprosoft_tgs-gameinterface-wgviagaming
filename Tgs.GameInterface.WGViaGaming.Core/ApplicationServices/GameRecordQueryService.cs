@@ -55,7 +55,7 @@ internal class GameRecordQueryService : IQueryService<GameRecordQuery, GameRecor
             if (showBetInfo.ShowType.Contains("過關", StringComparison.OrdinalIgnoreCase) ||
                 showBetInfo.ShowType.Contains("过关", StringComparison.OrdinalIgnoreCase))
             {
-                var tomorrowClosedOn = externalClosedOn.AddDays(+1).Date;
+                var tomorrowClosedOn = externalClosedOn.AddDays(+1).Date.ToShortDateString().StringConvertDateTimeOffset();
                 if (externalClosedOn.CompareTo(tomorrowClosedOn) != -1 ||
                     _systemClock.CurrentTime.CompareTo(tomorrowClosedOn) is -1
                     )
