@@ -7,7 +7,7 @@ namespace Tgs.GameInterface.WGViaGaming.Core.UnitTest.ApplicationServices;
 public class GameRecordQueryServiceUnitTest
 {
     [Fact]
-    public async Task 过关_Is_Close()
+    public async Task Parlay_lang_zh_chs_Is_Close()
     {
         var query = new GameRecordQuery(
             ApiUrl: new Uri("http://localhost:8088/"),
@@ -79,7 +79,7 @@ public class GameRecordQueryServiceUnitTest
     }
 
     [Fact]
-    public async Task 过关_Is_Open()
+    public async Task Parlay_lang_zh_chs_Is_Open()
     {
         var query = new GameRecordQuery(
             ApiUrl: new Uri("http://localhost:8088/"),
@@ -151,7 +151,7 @@ public class GameRecordQueryServiceUnitTest
     }
 
     [Fact]
-    public async Task 過關_Is_Close()
+    public async Task Parlay_lang_zh_cht_Is_Close()
     {
         var query = new GameRecordQuery(
             ApiUrl: new Uri("http://localhost:8088/"),
@@ -223,7 +223,7 @@ public class GameRecordQueryServiceUnitTest
     }
 
     [Fact]
-    public async Task 過關_Is_Open()
+    public async Task Parlay_lang_zh_cht_Is_Open()
     {
         var query = new GameRecordQuery(
             ApiUrl: new Uri("http://localhost:8088/"),
@@ -365,7 +365,7 @@ public class GameRecordQueryServiceUnitTest
     }
 
     [Fact]
-    public async Task 位置Q_Is_Close()
+    public async Task Each_Way_Q_Is_Close()
     {
         var query = new GameRecordQuery(
             ApiUrl: new Uri("http://localhost:8088/"),
@@ -435,7 +435,7 @@ public class GameRecordQueryServiceUnitTest
     }
 
     [Fact]
-    public async Task 獨贏_Is_Close()
+    public async Task Single_Is_Close()
     {
         var query = new GameRecordQuery(
             ApiUrl: new Uri("http://localhost:8088/"),
