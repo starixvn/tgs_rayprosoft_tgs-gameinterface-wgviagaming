@@ -41,8 +41,8 @@ public interface IGameInterfaceWGViaGamingClient
         string partnerCode,
         string secretKey,
         string secretIV,
-        DateTimeOffset startDate,
-        DateTimeOffset endDate,
+        DateTimeOffset startTime,
+        DateTimeOffset endTime,
         int pageIndex = 1,
         int pageSize = 1000,
         CancellationToken cancellationToken = default);

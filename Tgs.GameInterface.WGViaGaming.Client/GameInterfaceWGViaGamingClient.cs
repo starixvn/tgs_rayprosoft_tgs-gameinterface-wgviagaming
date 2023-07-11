@@ -108,8 +108,8 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
         string partnerCode,
         string secretKey,
         string secretIV,
-        DateTimeOffset startDate,
-        DateTimeOffset endDate,
+        DateTimeOffset startTime,
+        DateTimeOffset endTime,
         int pageIndex = 1,
         int pageSize = 1000,
        [EnumeratorCancellation] CancellationToken cancellationToken = default)
@@ -122,8 +122,8 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
                 PartnerCode = partnerCode,
                 SecretKey = secretKey,
                 SecretIV = secretIV,
-                StartTime = startDate.ToTimestamp(),
-                EndTime = endDate.ToTimestamp(),
+                StartTime = startTime.ToTimestamp(),
+                EndTime = endTime.ToTimestamp(),
                 PageIndex = pageIndex,
                 PageSize = pageSize
             },
