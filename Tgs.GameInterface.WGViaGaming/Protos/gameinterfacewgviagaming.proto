@@ -1,0 +1,126 @@
+﻿syntax = "proto3";
+
+import "phoenix/protobuf/decimal.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Tgs.GameInterface.WGViaGaming.Protos";
+
+package gameinterfacewgviagaming;
+
+// The greeting service definition.
+service GameInterfaceWGViaGaming {
+  // Sends a greeting
+  rpc PlayerCreate (PlayerCreateRequest) returns (BaseReply);
+  rpc PlayerBalance (PlayerBalanceRequest) returns (PlayerBalanceReply);
+  rpc PlayerLogout (PlayerLogoutRequest) returns (BaseReply);
+  rpc FundIn (FundRequest) returns (BaseReply);
+  rpc FundOut (FundRequest) returns (BaseReply);
+  rpc FundStatus(FundStatusRequest) returns (BaseReply);
+  rpc GameUrl (GameUrlRequest) returns (GameUrlReply);
+  rpc GameRecord (GameRecordRequest) returns (GameRecordReply);
+  rpc CheckingService(CheckingServiceRequest) returns (CheckingServiceReply);
+}
+
+// The request message containing the user's name.
+message PlayerCreateRequest {
+	string api_url = 1;
+	string partner_code = 2;
+	string secret_key = 3;
+	string secret_i_v = 4;
+	string player_code = 5;
+	string currency_code = 6;
+}
+
+message PlayerBalanceRequest {
+	string api_url = 1;
+	string partner_code = 2;
+	string secret_key = 3;
+	string secret_i_v = 4;
+	string player_code = 5;
+}
+
+message PlayerLogoutRequest {
+	string api_url = 1;
+	string partner_code = 2;
+	string secret_key = 3;
+	string secret_i_v = 4;
+	string player_code = 5;
+}
+
+message FundRequest {
+	string api_url = 1;
+	string partner_code = 2;
+	string secret_key = 3;
+	string secret_i_v = 4;
+	string player_code = 5;
+	string order_id = 6;
+	phoenix.protobuf.DecimalValue amount = 7;
+}
+
+message FundStatusRequest {
+	string api_url = 1;
+	string partner_code = 2;
+	string secret_key = 3;
+	string secret_i_v = 4;
+	string order_id = 5;
+}
+
+message GameUrlRequest {
+	string api_url = 1;
+	string partner_code = 2;
+	string secret_key = 3;
+	string secret_i_v = 4;
+	string player_code = 5;
+	string currency_code = 6;
+	string lang = 7;
+}
+
+message GameRecordRequest {
+	string api_url = 1;
+	string partner_code = 2;
+	string secret_key = 3;
+	string secret_i_v = 4;
+	google.protobuf.Timestamp start_time = 5;
+	google.protobuf.Timestamp end_time = 6;
+	int32 page_index = 7;
+	int32 page_size = 8;
+}
+
+message CheckingServiceRequest{
+    string machine_name = 1;
+}
+
+// The response message containing the greetings.
+message BaseReply {
+	bool state = 1;
+}
+
+message PlayerBalanceReply {
+	bool is_player_exist = 1;
+	phoenix.protobuf.DecimalValue balance = 2;
+}
+
+message GameUrlReply{
+	string game_url = 1;
+}
+
+message GameRecordReply {
+	repeated GameRecordInfo items = 1;
+}
+
+message GameRecordInfo {
+	string external_round_id = 1;
+    string player_code = 2;
+	bool is_closed = 3;
+	bool is_draw = 4;
+	google.protobuf.Timestamp external_created_on = 5;
+	google.protobuf.Timestamp external_closed_on = 6;
+	phoenix.protobuf.DecimalValue bet = 7;
+	phoenix.protobuf.DecimalValue settle = 8;
+	phoenix.protobuf.DecimalValue win_loss = 9;
+	string additional_data = 10;
+}
+
+message CheckingServiceReply{
+    string machine_name = 1;
+}
