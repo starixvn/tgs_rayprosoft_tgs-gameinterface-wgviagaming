@@ -11,6 +11,8 @@
 		<NoWarn>$(NoWarn);1591;0063</NoWarn>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+		<UserSecretsId>89b1b448-6c67-4f58-a5b8-82c95202e570</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 
 	<ItemGroup>
