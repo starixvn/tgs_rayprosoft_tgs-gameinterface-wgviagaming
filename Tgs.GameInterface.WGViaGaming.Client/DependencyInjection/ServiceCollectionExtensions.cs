@@ -35,7 +35,7 @@ public static class ServiceCollectionExtensions
                 configureChannel.HttpHandler = handler;
                 configureChannel.Credentials = isDns
                 ? ChannelCredentials.Insecure
-                : ChannelCredentials.SecureSsl;
+                : null;
             })
             .AddInterceptor<LoggingInterceptor>()
             .Services

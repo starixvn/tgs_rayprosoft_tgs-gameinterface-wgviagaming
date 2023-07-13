@@ -6,7 +6,7 @@ public static class DateTimeExtensions
 
     static DateTimeExtensions()
     {
-        _TimeZone = TimeZoneInfo.FindSystemTimeZoneById("Taipei Standard Time");
+        _TimeZone = TimeZoneInfo.CreateCustomTimeZone(id: "Taipei Standard Time", baseUtcOffset: TimeSpan.FromHours(+8), "Taipei Standard Time", "Taipei Standard Time");
     }
 
     public static DateTimeOffset StringConvertDateTimeOffset(this string str)
@@ -20,7 +20,7 @@ public static class DateTimeExtensions
         return new DateTimeOffset(date, _TimeZone.GetUtcOffset(date));
     }
 
-    public static string DateTimeOffsetConvertString(this DateTimeOffset date)
+    public static string DateTimeOffsetConvertShortDateString(this DateTimeOffset date)
     {
         return TimeZoneInfo.ConvertTime(date.ToUniversalTime(), _TimeZone).ToString("yyyy-MM-dd");
     }

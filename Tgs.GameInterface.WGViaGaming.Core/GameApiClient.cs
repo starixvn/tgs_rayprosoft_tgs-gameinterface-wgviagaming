@@ -149,7 +149,7 @@ internal class GameApiClient : IGameApiClient
         int pageSize,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var data = $"|{startTime.DateTimeOffsetConvertString()}|{endTime.DateTimeOffsetConvertString()}|{pageIndex}|{pageSize}";
+        var data = $"|{startTime.DateTimeOffsetConvertShortDateString()}|{endTime.DateTimeOffsetConvertShortDateString()}|{pageIndex}|{pageSize}";
         var jsonNode = await GetAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
