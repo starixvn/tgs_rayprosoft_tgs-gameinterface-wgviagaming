@@ -89,8 +89,7 @@ public class ShowBetListUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .ShowBetListAsync(
+        var actual = await client.ShowBetListAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
@@ -100,7 +99,6 @@ public class ShowBetListUnitTest
             pageIndex: pageIndex,
             pageSize: pageSize)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<ShowBetInfo>();
 
         Assert.True(actual.Any());
@@ -177,8 +175,7 @@ public class ShowBetListUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .ShowBetListAsync(
+        var actual = await client.ShowBetListAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
@@ -188,7 +185,6 @@ public class ShowBetListUnitTest
             pageIndex: pageIndex,
             pageSize: pageSize)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<ShowBetInfo>();
 
         Assert.False(actual.Any());
@@ -247,8 +243,7 @@ public class ShowBetListUnitTest
             fakeHttpClient);
 
         _ = await Assert.ThrowsAsync<ReturnCodeException>(
-            () => client
-            .ShowBetListAsync(
+            () => client.ShowBetListAsync(
                 apiUrl: apiUrl,
                 partnerCode: partnerCode,
                 secretKey: secretKey,
@@ -258,7 +253,6 @@ public class ShowBetListUnitTest
                 pageIndex: pageIndex,
                 pageSize: pageSize)
             .ToArrayAsync()
-            .AsTask())
-            .ConfigureAwait(false);
+            .AsTask());
     }
 }

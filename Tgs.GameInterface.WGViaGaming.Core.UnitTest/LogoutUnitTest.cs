@@ -62,14 +62,12 @@ public class LogoutUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        await client
-            .LogoutAsync(
+        await client.LogoutAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
             secretIV: secretIV,
-            memberCode: memberCode)
-            .ConfigureAwait(false);
+            memberCode: memberCode);
     }
 
     [Fact]
@@ -122,14 +120,12 @@ public class LogoutUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        await client
-            .LogoutAsync(
+        await client.LogoutAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
             secretIV: secretIV,
-            memberCode: memberCode)
-            .ConfigureAwait(false);
+            memberCode: memberCode);
     }
 
     [Fact]
@@ -183,14 +179,12 @@ public class LogoutUnitTest
             fakeHttpClient);
 
         _ = await Assert.ThrowsAsync<ReturnCodeException>(
-            () => client
-            .LogoutAsync(
+            () => client.LogoutAsync(
                 apiUrl: apiUrl,
                 partnerCode: partnerCode,
                 secretKey: secretKey,
                 secretIV: secretIV,
                 memberCode: memberCode)
-            .AsTask())
-            .ConfigureAwait(false);
+            .AsTask());
     }
 }

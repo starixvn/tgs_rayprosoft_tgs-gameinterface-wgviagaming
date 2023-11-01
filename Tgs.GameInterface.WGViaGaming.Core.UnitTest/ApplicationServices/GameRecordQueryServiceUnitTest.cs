@@ -58,11 +58,9 @@ public class GameRecordQueryServiceUnitTest
             fakeClient,
             fakeSystemClock);
 
-        var actual = await service
-            .QueryAsync(
+        var actual = await service.QueryAsync(
             query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordResult>();
 
         Assert.True(actual.Any());
@@ -130,11 +128,9 @@ public class GameRecordQueryServiceUnitTest
             fakeClient,
             fakeSystemClock);
 
-        var actual = await service
-            .QueryAsync(
+        var actual = await service.QueryAsync(
             query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordResult>();
 
         Assert.True(actual.Any());
@@ -202,11 +198,9 @@ public class GameRecordQueryServiceUnitTest
             fakeClient,
             fakeSystemClock);
 
-        var actual = await service
-            .QueryAsync(
+        var actual = await service.QueryAsync(
             query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordResult>();
 
         Assert.True(actual.Any());
@@ -274,11 +268,9 @@ public class GameRecordQueryServiceUnitTest
             fakeClient,
             fakeSystemClock);
 
-        var actual = await service
-            .QueryAsync(
+        var actual = await service.QueryAsync(
             query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordResult>();
 
         Assert.True(actual.Any());
@@ -344,11 +336,9 @@ public class GameRecordQueryServiceUnitTest
             fakeClient,
             fakeSystemClock);
 
-        var actual = await service
-            .QueryAsync(
+        var actual = await service.QueryAsync(
             query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordResult>();
 
         Assert.True(actual.Any());
@@ -414,11 +404,9 @@ public class GameRecordQueryServiceUnitTest
             fakeClient,
             fakeSystemClock);
 
-        var actual = await service
-            .QueryAsync(
+        var actual = await service.QueryAsync(
             query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordResult>();
 
         Assert.True(actual.Any());
@@ -484,11 +472,9 @@ public class GameRecordQueryServiceUnitTest
             fakeClient,
             fakeSystemClock);
 
-        var actual = await service
-            .QueryAsync(
+        var actual = await service.QueryAsync(
             query: query)
             .ToArrayAsync()
-            .ConfigureAwait(false)
             ?? Enumerable.Empty<GameRecordResult>();
 
         Assert.True(actual.Any());

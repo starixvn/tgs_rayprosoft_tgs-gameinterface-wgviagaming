@@ -64,16 +64,14 @@ public class AccessMoneyDepositUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        await client
-            .AccessMoneyDepositAsync(
+        await client.AccessMoneyDepositAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
             secretIV: secretIV,
             memberCode: memberCode,
             orderId: orderId,
-            amount: amount)
-            .ConfigureAwait(false);
+            amount: amount);
     }
 
     [Fact]
@@ -129,8 +127,7 @@ public class AccessMoneyDepositUnitTest
             fakeHttpClient);
 
         _ = await Assert.ThrowsAsync<ReturnCodeException>(
-            () => client
-            .AccessMoneyDepositAsync(
+            () => client.AccessMoneyDepositAsync(
                 apiUrl: apiUrl,
                 partnerCode: partnerCode,
                 secretKey: secretKey,
@@ -138,8 +135,7 @@ public class AccessMoneyDepositUnitTest
                 memberCode: memberCode,
                 orderId: orderId,
                 amount: amount)
-            .AsTask())
-            .ConfigureAwait(false);
+            .AsTask());
     }
 
     [Fact]
@@ -195,8 +191,7 @@ public class AccessMoneyDepositUnitTest
             fakeHttpClient);
 
         _ = await Assert.ThrowsAsync<ReturnCodeException>(
-            () => client
-            .AccessMoneyDepositAsync(
+            () => client.AccessMoneyDepositAsync(
                 apiUrl: apiUrl,
                 partnerCode: partnerCode,
                 secretKey: secretKey,
@@ -204,7 +199,6 @@ public class AccessMoneyDepositUnitTest
                 memberCode: memberCode,
                 orderId: orderId,
                 amount: amount)
-            .AsTask())
-            .ConfigureAwait(false);
+            .AsTask());
     }
 }

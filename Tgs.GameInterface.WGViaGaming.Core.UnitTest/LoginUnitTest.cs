@@ -53,13 +53,11 @@ public class LoginUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .LoginAsync(
+        var actual = await client.LoginAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             token: token,
-            lang: lang)
-            .ConfigureAwait(false);
+            lang: lang);
 
         Assert.Equal(response["LoginUrl"]!.ToString(), actual);
     }
@@ -105,13 +103,11 @@ public class LoginUnitTest
             fakeHttpClient);
 
         _ = await Assert.ThrowsAsync<ReturnCodeException>(
-            () => client
-            .LoginAsync(
+            () => client.LoginAsync(
                 apiUrl: apiUrl,
                 partnerCode: partnerCode,
                 token: token,
                 lang: lang)
-            .AsTask())
-            .ConfigureAwait(false);
+            .AsTask());
     }
 }

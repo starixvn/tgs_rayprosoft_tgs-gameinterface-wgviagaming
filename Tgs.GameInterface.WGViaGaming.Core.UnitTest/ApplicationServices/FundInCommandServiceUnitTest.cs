@@ -22,10 +22,7 @@ public class FundInCommandServiceUnitTest
         var service = new FundInCommandService(
             fakeClient);
 
-        await service
-            .ExecuteAsync(
-            command: command)
-            .ConfigureAwait(false);
+        await service.ExecuteAsync(command: command);
 
         _ = fakeClient
             .Received(1)

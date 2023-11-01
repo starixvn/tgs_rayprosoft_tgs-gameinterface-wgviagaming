@@ -64,14 +64,12 @@ public class GetBalanceUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var (IsPlayer, Balance) = await client
-            .GetBalanceAsync(
+        var (IsPlayer, Balance) = await client.GetBalanceAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
             secretIV: secretIV,
-            memberCode: memberCode)
-            .ConfigureAwait(false);
+            memberCode: memberCode);
 
         Assert.True(IsPlayer);
         Assert.Equal(0.00m, Balance);
@@ -128,14 +126,12 @@ public class GetBalanceUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var (IsPlayer, Balance) = await client
-            .GetBalanceAsync(
+        var (IsPlayer, Balance) = await client.GetBalanceAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
             secretIV: secretIV,
-            memberCode: memberCode)
-            .ConfigureAwait(false);
+            memberCode: memberCode);
 
         Assert.False(IsPlayer);
         Assert.Equal(0.00m, Balance);
@@ -192,14 +188,12 @@ public class GetBalanceUnitTest
             fakeHttpClient);
 
         _ = await Assert.ThrowsAsync<ReturnCodeException>(
-            () => client
-            .GetBalanceAsync(
+            () => client.GetBalanceAsync(
                 apiUrl: apiUrl,
                 partnerCode: partnerCode,
                 secretKey: secretKey,
                 secretIV: secretIV,
                 memberCode: memberCode)
-            .AsTask())
-            .ConfigureAwait(false);
+            .AsTask());
     }
 }

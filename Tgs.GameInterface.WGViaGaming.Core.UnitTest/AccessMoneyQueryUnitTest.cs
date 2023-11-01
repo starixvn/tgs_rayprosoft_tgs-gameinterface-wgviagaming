@@ -62,14 +62,12 @@ public class AccessMoneyQueryUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .AccessMoneyQueryAsync(
+        var actual = await client.AccessMoneyQueryAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
             secretIV: secretIV,
-            orderId: orderId)
-            .ConfigureAwait(false);
+            orderId: orderId);
 
         Assert.True(actual);
     }
@@ -124,14 +122,12 @@ public class AccessMoneyQueryUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .AccessMoneyQueryAsync(
+        var actual = await client.AccessMoneyQueryAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
             secretIV: secretIV,
-            orderId: orderId)
-            .ConfigureAwait(false);
+            orderId: orderId);
 
         Assert.False(actual);
     }
@@ -187,14 +183,12 @@ public class AccessMoneyQueryUnitTest
             fakeHttpClient);
 
         _ = await Assert.ThrowsAsync<ReturnCodeException>(
-            () => client
-            .AccessMoneyQueryAsync(
+            () => client.AccessMoneyQueryAsync(
                 apiUrl: apiUrl,
                 partnerCode: partnerCode,
                 secretKey: secretKey,
                 secretIV: secretIV,
                 orderId: orderId)
-            .AsTask())
-            .ConfigureAwait(false);
+            .AsTask());
     }
 }

@@ -69,16 +69,14 @@ public class PrepareLoginUnitTest
             fakeSystemClock,
             fakeHttpClient);
 
-        var actual = await client
-            .PrepareLoginAsync(
+        var actual = await client.PrepareLoginAsync(
             apiUrl: apiUrl,
             partnerCode: partnerCode,
             secretKey: secretKey,
             secretIV: secretIV,
             memberCode: memberCode,
             nickname: memberCode,
-            currencyCode: currencyCode)
-            .ConfigureAwait(false);
+            currencyCode: currencyCode);
 
         Assert.Equal(response["Token"]!.ToString(), actual);
     }
@@ -140,8 +138,7 @@ public class PrepareLoginUnitTest
             fakeHttpClient);
 
         _ = await Assert.ThrowsAsync<ReturnCodeException>(
-            () => client
-            .PrepareLoginAsync(
+            () => client.PrepareLoginAsync(
                 apiUrl: apiUrl,
                 partnerCode: partnerCode,
                 secretKey: secretKey,
@@ -149,7 +146,6 @@ public class PrepareLoginUnitTest
                 memberCode: memberCode,
                 nickname: memberCode,
                 currencyCode: currencyCode)
-            .AsTask())
-            .ConfigureAwait(false);
+            .AsTask());
     }
 }
