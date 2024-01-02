@@ -2,21 +2,13 @@
 
 namespace Tgs.GameInterface.WGViaGaming.Core.ApplicationServices;
 
-public class PlayerBalanceGetService : IGetService<PlayerBalanceQuery, PlayerBalanceResult>
+public class PlayerBalanceGetService(IGameApiClient client) : IGetService<PlayerBalanceQuery, PlayerBalanceResult>
 {
-    private readonly IGameApiClient _client;
-
-    public PlayerBalanceGetService(IGameApiClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public async ValueTask<PlayerBalanceResult> GetAsync(
         PlayerBalanceQuery query,
         CancellationToken cancellationToken = default)
     {
-        (bool IsPlayerExist, decimal Balance) = await _client
-            .GetBalanceAsync(
+        (bool IsPlayerExist, decimal Balance) = await client.GetBalanceAsync(
             apiUrl: query.ApiUrl,
             partnerCode: query.PartnerCode,
             secretKey: query.SecretKey,

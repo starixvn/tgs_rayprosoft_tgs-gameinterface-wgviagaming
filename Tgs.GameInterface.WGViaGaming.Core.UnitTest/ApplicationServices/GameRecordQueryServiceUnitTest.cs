@@ -24,7 +24,7 @@ public class GameRecordQueryServiceUnitTest
 
         var showBetInfos = new ShowBetInfo[]
         {
-            new ShowBetInfo(
+            new(
                 MemberCode: "4ued5l50heuf",
                 RecordDate: "2022-04-20 14:11:54",
                 BatchNo: "819776544",
@@ -94,7 +94,7 @@ public class GameRecordQueryServiceUnitTest
 
         var showBetInfos = new ShowBetInfo[]
         {
-            new ShowBetInfo(
+            new(
                 MemberCode: "4ued5l50heuf",
                 RecordDate: "2022-04-20 14:11:54",
                 BatchNo: "819776544",
@@ -164,7 +164,7 @@ public class GameRecordQueryServiceUnitTest
 
         var showBetInfos = new ShowBetInfo[]
         {
-            new ShowBetInfo(
+            new(
                 MemberCode: "4ugl1wyedic5",
                 RecordDate: "2022-04-16 17:00:04",
                 BatchNo: "123499081",
@@ -234,7 +234,7 @@ public class GameRecordQueryServiceUnitTest
 
         var showBetInfos = new ShowBetInfo[]
         {
-            new ShowBetInfo(
+            new(
                 MemberCode: "4ugl1wyedic5",
                 RecordDate: "2022-04-16 17:00:04",
                 BatchNo: "123499081",
@@ -304,7 +304,7 @@ public class GameRecordQueryServiceUnitTest
 
         var showBetInfos = new ShowBetInfo[]
         {
-            new ShowBetInfo(
+            new(
                 MemberCode: "4uf2njegpusz",
                 RecordDate: "2021-10-31 13:04:19",
                 BatchNo: "123499081",
@@ -372,7 +372,7 @@ public class GameRecordQueryServiceUnitTest
 
         var showBetInfos = new ShowBetInfo[]
         {
-            new ShowBetInfo(
+            new(
                 MemberCode: "4uf2njegpusz",
                 RecordDate: "2022-04-16 14:56:44",
                 BatchNo: "933761975",
@@ -440,7 +440,7 @@ public class GameRecordQueryServiceUnitTest
 
         var showBetInfos = new ShowBetInfo[]
         {
-            new ShowBetInfo(
+            new(
                 MemberCode: "4ugl1wyedic5",
                 RecordDate: "2022-04-16 14:54:53",
                 BatchNo: "833757162",

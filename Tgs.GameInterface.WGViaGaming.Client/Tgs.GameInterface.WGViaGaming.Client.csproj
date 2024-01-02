@@ -1,17 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>0.0.11</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>0.0.12</Version>
 		<Authors>Raypro</Authors>
-		<RootNamespace>Tgs.GameInterface.WGViaGaming.Client</RootNamespace>
-		<PackageId>Tgs.GameInterface.WGViaGaming.Client</PackageId>
-		<Title>Tgs.GameInterface.WGViaGaming.Client</Title>
 		<PackageProjectUrl>https://gitlab.com/rayprosoft/tgs-gameinterface-wgviagaming</PackageProjectUrl>
 		<RepositoryUrl>https://gitlab.com/rayprosoft/tgs-gameinterface-wgviagaming.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+		<RootNamespace>Tgs.GameInterface.WGViaGaming.Client</RootNamespace>
+		<PackageId>Tgs.GameInterface.WGViaGaming.Client</PackageId>
+		<Title>Tgs.GameInterface.WGViaGaming.Client</Title>
+		<Description>Tgs.GameInterface.WGViaGaming.Client</Description>
 		<PackageTags>Tgs GameInterface WGViaGaming Client</PackageTags>
 	</PropertyGroup>
 

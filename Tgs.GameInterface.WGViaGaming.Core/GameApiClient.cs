@@ -10,25 +10,12 @@ using Tgs.GameInterface.WGViaGaming.Core.Models;
 
 namespace Tgs.GameInterface.WGViaGaming.Core;
 
-internal class GameApiClient : IGameApiClient
+internal class GameApiClient(
+    ILogger<GameApiClient> logger,
+    IHashCryptography cryptography,
+    ISystemClock systemClock,
+    HttpClient client) : IGameApiClient
 {
-    private readonly ILogger<GameApiClient> _logger;
-    private readonly IHashCryptography _cryptography;
-    private readonly ISystemClock _systemClock;
-    private readonly HttpClient _client;
-
-    public GameApiClient(
-        ILogger<GameApiClient> logger,
-        IHashCryptography cryptography,
-        ISystemClock systemClock,
-        HttpClient client)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _cryptography = cryptography ?? throw new ArgumentNullException(nameof(cryptography));
-        _systemClock = systemClock ?? throw new ArgumentNullException(nameof(systemClock));
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public async ValueTask AccessMoneyDepositAsync(
         Uri apiUrl,
         string partnerCode,
@@ -167,7 +154,7 @@ internal class GameApiClient : IGameApiClient
 
         var jsonArray = jsonNode["ArrayInvoice"]!.AsArray();
 
-        if (!jsonArray.Any())
+        if (jsonArray.Count == 0)
         {
             yield break;
         }
@@ -225,7 +212,7 @@ internal class GameApiClient : IGameApiClient
         string currencyCode,
         CancellationToken cancellationToken = default)
     {
-        var timestamp = _systemClock.CurrentTime.ToUnixTimeSeconds();
+        var timestamp = systemClock.CurrentTime.ToUnixTimeSeconds();
         var data = $"{timestamp}|{memberCode}|{nickname}|{currencyCode}";
 
         var jsonNode = await GetAsync(
@@ -280,7 +267,7 @@ internal class GameApiClient : IGameApiClient
         string data,
         CancellationToken cancellationToken = default)
     {
-        var hash = await _cryptography
+        var hash = await cryptography
             .GetAesEncryptAsync(
             data: data,
             secretKey: secretKey,
@@ -301,7 +288,7 @@ internal class GameApiClient : IGameApiClient
 
         var sw = Stopwatch.StartNew();
 
-        var httpResponseMessage = await _client
+        var httpResponseMessage = await client
             .GetAsync(
                 requestUri: uriBuilder.ToString(),
                 cancellationToken: cancellationToken)
@@ -333,7 +320,7 @@ internal class GameApiClient : IGameApiClient
             RecordedOn = DateTimeOffset.UtcNow
         };
 
-        _logger.LogInformation("{logEvent}", JsonSerializer.Serialize(logEvent));
+        logger.LogInformation("{logEvent}", JsonSerializer.Serialize(logEvent));
 
         _ = httpResponseMessage.EnsureSuccessStatusCode();
 
@@ -363,7 +350,7 @@ internal class GameApiClient : IGameApiClient
 
         var sw = Stopwatch.StartNew();
 
-        var httpResponseMessage = await _client
+        var httpResponseMessage = await client
             .GetAsync(
             requestUri: uriBuilder.ToString(),
             cancellationToken: cancellationToken)
@@ -396,7 +383,7 @@ internal class GameApiClient : IGameApiClient
             RecordedOn = DateTimeOffset.UtcNow
         };
 
-        _logger.LogInformation("{logEvent}", JsonSerializer.Serialize(logEvent));
+        logger.LogInformation("{logEvent}", JsonSerializer.Serialize(logEvent));
 
         _ = httpResponseMessage.EnsureSuccessStatusCode();
 

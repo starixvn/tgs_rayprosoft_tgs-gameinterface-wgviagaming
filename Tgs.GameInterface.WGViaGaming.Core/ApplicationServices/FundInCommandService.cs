@@ -2,20 +2,12 @@
 
 namespace Tgs.GameInterface.WGViaGaming.Core.ApplicationServices;
 
-internal class FundInCommandService : ICommandService<FundInCommand>
+internal class FundInCommandService(IGameApiClient client) : ICommandService<FundInCommand>
 {
-    private readonly IGameApiClient _client;
-
-    public FundInCommandService(IGameApiClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public ValueTask ExecuteAsync(
         FundInCommand command,
         CancellationToken cancellationToken = default)
-        => _client
-        .AccessMoneyWithdrawalAsync(
+        => client.AccessMoneyWithdrawalAsync(
             apiUrl: command.ApiUrl,
             partnerCode: command.PartnerCode,
             secretKey: command.SecretKey,

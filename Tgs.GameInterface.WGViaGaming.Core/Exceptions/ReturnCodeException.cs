@@ -1,11 +1,7 @@
 ﻿namespace Tgs.GameInterface.WGViaGaming.Core.Exceptions;
 
-public class ReturnCodeException : Exception
+public class ReturnCodeException(string returnCode) : Exception(ConvertErrorMesaage(returnCode))
 {
-    public ReturnCodeException(string returnCode) : base(ConvertErrorMesaage(returnCode))
-    {
-    }
-
     private static string ConvertErrorMesaage(string returnCode) => returnCode switch
     {
         "101" => "請求過期，原因是當前時間與解密 Hash 後得到的時間間隔太久。",

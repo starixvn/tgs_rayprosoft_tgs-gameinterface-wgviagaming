@@ -6,43 +6,20 @@ using Tgs.ServiceUtility;
 
 namespace Tgs.GameInterface.WGViaGaming.GrpcServices;
 
-public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.GameInterfaceWGViaGamingBase
+public class GameInterfaceWGViaGamingGrpcService(
+    ILogger<GameInterfaceWGViaGamingGrpcService> logger,
+    ICommandService<FundInCommand> fundInService,
+    ICommandService<FundOutCommand> fundOutService,
+    IGetService<FundStatusQuery, bool> fundStatusService,
+    IQueryService<GameRecordQuery, GameRecordResult> gameRecordService,
+    IGetService<GameUrlQuery, string> gameUrlService,
+    IGetService<PlayerBalanceQuery, PlayerBalanceResult> playerBalanceService,
+    ICommandService<PlayerCreateCommand> playerCreateService,
+    ICommandService<PlayerLogoutCommand> PlayerLogoutService) : GameInterfaceWGViaGaming.GameInterfaceWGViaGamingBase
 {
-    private readonly ICommandService<FundInCommand> _fundInService;
-    private readonly ICommandService<FundOutCommand> _fundOutService;
-    private readonly IGetService<FundStatusQuery, bool> _fundStatusService;
-    private readonly IQueryService<GameRecordQuery, GameRecordResult> _gameRecordService;
-    private readonly IGetService<GameUrlQuery, string> _gameUrlService;
-    private readonly ILogger<GameInterfaceWGViaGamingGrpcService> _logger;
-    private readonly IGetService<PlayerBalanceQuery, PlayerBalanceResult> _playerBalanceService;
-    private readonly ICommandService<PlayerCreateCommand> _playerCreateService;
-    private readonly ICommandService<PlayerLogoutCommand> _playerLogoutService;
-
-    public GameInterfaceWGViaGamingGrpcService(
-        ILogger<GameInterfaceWGViaGamingGrpcService> logger,
-        ICommandService<FundInCommand> fundInService,
-        ICommandService<FundOutCommand> fundOutService,
-        IGetService<FundStatusQuery, bool> fundStatusService,
-        IQueryService<GameRecordQuery, GameRecordResult> gameRecordService,
-        IGetService<GameUrlQuery, string> gameUrlService,
-        IGetService<PlayerBalanceQuery, PlayerBalanceResult> playerBalanceService,
-        ICommandService<PlayerCreateCommand> playerCreateService,
-        ICommandService<PlayerLogoutCommand> PlayerLogoutService)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _fundInService = fundInService ?? throw new ArgumentNullException(nameof(fundInService));
-        _fundOutService = fundOutService ?? throw new ArgumentNullException(nameof(fundOutService));
-        _fundStatusService = fundStatusService ?? throw new ArgumentNullException(nameof(fundStatusService));
-        _gameRecordService = gameRecordService ?? throw new ArgumentNullException(nameof(gameRecordService));
-        _gameUrlService = gameUrlService ?? throw new ArgumentNullException(nameof(gameUrlService));
-        _playerBalanceService = playerBalanceService ?? throw new ArgumentNullException(nameof(playerBalanceService));
-        _playerCreateService = playerCreateService ?? throw new ArgumentNullException(nameof(playerCreateService));
-        _playerLogoutService = PlayerLogoutService ?? throw new ArgumentNullException(nameof(PlayerLogoutService));
-    }
-
     public override Task<CheckingServiceReply> CheckingService(CheckingServiceRequest request, ServerCallContext context)
     {
-        _logger.LogWarning("LogOn:{logOn} Message: Create a check connection.({machineName})", DateTime.Now.ToString("o"), request.MachineName);
+        logger.LogWarning("LogOn:{logOn} Message: Create a check connection.({machineName})", DateTime.Now.ToString("o"), request.MachineName);
 
         return Task.FromResult(new CheckingServiceReply
         {
@@ -61,7 +38,7 @@ public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.Game
             OrderId: request.OrderId,
             Amount: request.Amount);
 
-        await _fundInService
+        await fundInService
             .ExecuteAsync(
             command: command,
             cancellationToken: context.CancellationToken)
@@ -84,7 +61,7 @@ public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.Game
             OrderId: request.OrderId,
             Amount: request.Amount);
 
-        await _fundOutService
+        await fundOutService
             .ExecuteAsync(
             command: command,
             cancellationToken: context.CancellationToken)
@@ -105,7 +82,7 @@ public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.Game
             SecretIV: request.SecretIV,
             OrderId: request.OrderId);
 
-        var result = await _fundStatusService
+        var result = await fundStatusService
             .GetAsync(
             query: query,
             cancellationToken: context.CancellationToken)
@@ -129,7 +106,7 @@ public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.Game
             PageIndex: request.PageIndex,
             PageSize: request.PageSize);
 
-        var results = await _gameRecordService
+        var results = await gameRecordService
             .QueryAsync(
                 query: query,
                 cancellationToken: context.CancellationToken)
@@ -174,7 +151,7 @@ public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.Game
             CurrencyCode: request.CurrencyCode,
             Lang: request.Lang);
 
-        var result = await _gameUrlService
+        var result = await gameUrlService
             .GetAsync(
                 query: query,
                 cancellationToken: context.CancellationToken)
@@ -195,7 +172,7 @@ public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.Game
             SecretIV: request.SecretIV,
             PlayerCode: request.PlayerCode);
 
-        var result = await _playerBalanceService
+        var result = await playerBalanceService
             .GetAsync(
                 query: query,
                 cancellationToken: context.CancellationToken)
@@ -218,7 +195,7 @@ public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.Game
             PlayerCode: request.PlayerCode,
             CurrencyCode: request.CurrencyCode);
 
-        await _playerCreateService
+        await playerCreateService
             .ExecuteAsync(
                 command: command,
                cancellationToken: context.CancellationToken)
@@ -239,7 +216,7 @@ public class GameInterfaceWGViaGamingGrpcService : GameInterfaceWGViaGaming.Game
             SecretIV: request.SecretIV,
             PlayerCode: request.PlayerCode);
 
-        await _playerLogoutService
+        await PlayerLogoutService
             .ExecuteAsync(
                 command: command,
                cancellationToken: context.CancellationToken)

@@ -2,24 +2,16 @@
 
 namespace Tgs.GameInterface.WGViaGaming.Core.ApplicationServices;
 
-internal class PlayerLogoutCommandService : ICommandService<PlayerLogoutCommand>
+internal class PlayerLogoutCommandService(IGameApiClient client) : ICommandService<PlayerLogoutCommand>
 {
-    private readonly IGameApiClient _client;
-
-    public PlayerLogoutCommandService(IGameApiClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public ValueTask ExecuteAsync(
         PlayerLogoutCommand command,
         CancellationToken cancellationToken = default)
-        => _client
-            .LogoutAsync(
-                command.ApiUrl,
-                command.PartnerCode,
-                command.SecretKey,
-                command.SecretIV,
-                command.PlayerCode,
-                cancellationToken);
+        => client.LogoutAsync(
+            apiUrl: command.ApiUrl,
+            partnerCode: command.PartnerCode,
+            secretKey: command.SecretKey,
+            secretIV: command.SecretIV,
+            memberCode: command.PlayerCode,
+            cancellationToken: cancellationToken);
 }

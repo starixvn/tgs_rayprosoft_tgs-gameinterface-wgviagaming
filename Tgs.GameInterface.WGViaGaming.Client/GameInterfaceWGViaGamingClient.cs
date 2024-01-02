@@ -4,15 +4,9 @@ using Tgs.GameInterface.WGViaGaming.Protos;
 
 namespace Tgs.GameInterface.WGViaGaming.Client;
 
-internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
+internal class GameInterfaceWGViaGamingClient(
+    GameInterfaceWGViaGaming.GameInterfaceWGViaGamingClient client) : IGameInterfaceWGViaGamingClient
 {
-    private readonly GameInterfaceWGViaGaming.GameInterfaceWGViaGamingClient _client;
-
-    public GameInterfaceWGViaGamingClient(GameInterfaceWGViaGaming.GameInterfaceWGViaGamingClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public async ValueTask<string> CheckingServiceAsync(
         string machineName,
         CancellationToken cancellationToken = default)
@@ -22,7 +16,7 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
             MachineName = machineName,
         };
 
-        var reply = await _client
+        var reply = await client
             .CheckingServiceAsync(
                 request: request,
                 cancellationToken: cancellationToken)
@@ -40,7 +34,7 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
         string orderId,
         decimal amount,
         CancellationToken cancellationToken = default)
-        => _ = await _client
+        => _ = await client
         .FundInAsync(
             request: new FundRequest
             {
@@ -64,7 +58,7 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
         string orderId,
         decimal amount,
         CancellationToken cancellationToken = default)
-        => _ = await _client
+        => _ = await client
         .FundOutAsync(
             request: new FundRequest
             {
@@ -87,7 +81,7 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
         string orderId,
         CancellationToken cancellationToken = default)
     {
-        var reply = await _client
+        var reply = await client
         .FundStatusAsync(
             request: new FundStatusRequest
             {
@@ -114,7 +108,7 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
         int pageSize = 1000,
        [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var reply = await _client
+        var reply = await client
         .GameRecordAsync(
             request: new GameRecordRequest
             {
@@ -154,7 +148,7 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
         string lang,
         CancellationToken cancellationToken = default)
     {
-        var reply = await _client
+        var reply = await client
              .GameUrlAsync(
             request: new GameUrlRequest
             {
@@ -179,7 +173,7 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
         string secretIV,
         string playerCode,
         CancellationToken cancellationToken = default)
-        => await _client
+        => await client
         .PlayerBalanceAsync(
             request: new PlayerBalanceRequest
             {
@@ -200,7 +194,7 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
         string playerCode,
         string currencyCode,
         CancellationToken cancellationToken = default)
-        => _ = await _client
+        => _ = await client
         .PlayerCreateAsync(
             request: new PlayerCreateRequest
             {
@@ -221,7 +215,7 @@ internal class GameInterfaceWGViaGamingClient : IGameInterfaceWGViaGamingClient
         string secretIV,
         string playerCode,
         CancellationToken cancellationToken = default)
-        => _ = await _client
+        => _ = await client
         .PlayerLogoutAsync(
             request: new PlayerLogoutRequest
             {

@@ -5,25 +5,15 @@ using Tgs.ServiceUtility;
 
 namespace Tgs.GameInterface.WGViaGaming.Core.ApplicationServices;
 
-internal class GameRecordQueryService : IQueryService<GameRecordQuery, GameRecordResult>
+internal class GameRecordQueryService(
+    IGameApiClient client,
+    ISystemClock systemClock) : IQueryService<GameRecordQuery, GameRecordResult>
 {
-    private readonly IGameApiClient _client;
-    private readonly ISystemClock _systemClock;
-
-    public GameRecordQueryService(
-        IGameApiClient client,
-        ISystemClock systemClock)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-        _systemClock = systemClock ?? throw new ArgumentNullException(nameof(systemClock));
-    }
-
     public async IAsyncEnumerable<GameRecordResult> QueryAsync(
         GameRecordQuery query,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var showBetInfos = await _client
-            .ShowBetListAsync(
+        var showBetInfos = await client.ShowBetListAsync(
             apiUrl: query.ApiUrl,
             partnerCode: query.PartnerCode,
             secretKey: query.SecretKey,
@@ -57,7 +47,7 @@ internal class GameRecordQueryService : IQueryService<GameRecordQuery, GameRecor
             {
                 var tomorrowClosedOn = externalClosedOn.AddDays(+1).Date.ToShortDateString().StringConvertDateTimeOffset();
                 if (externalClosedOn.CompareTo(tomorrowClosedOn) != -1 ||
-                    _systemClock.CurrentTime.CompareTo(tomorrowClosedOn) is -1
+                    systemClock.CurrentTime.CompareTo(tomorrowClosedOn) is -1
                     )
                 {
                     isClosed = false;

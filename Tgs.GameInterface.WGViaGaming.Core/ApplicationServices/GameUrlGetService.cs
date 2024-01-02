@@ -2,20 +2,13 @@
 
 namespace Tgs.GameInterface.WGViaGaming.Core.ApplicationServices;
 
-public class GameUrlGetService : IGetService<GameUrlQuery, string>
+public class GameUrlGetService(IGameApiClient client) : IGetService<GameUrlQuery, string>
 {
-    private readonly IGameApiClient _client;
-
-    public GameUrlGetService(IGameApiClient client)
-    {
-        _client = client ?? throw new ArgumentNullException(nameof(client));
-    }
-
     public async ValueTask<string> GetAsync(
         GameUrlQuery query,
         CancellationToken cancellationToken = default)
     {
-        var token = await _client
+        var token = await client
             .PrepareLoginAsync(
             apiUrl: query.ApiUrl,
             partnerCode: query.PartnerCode,
@@ -27,7 +20,7 @@ public class GameUrlGetService : IGetService<GameUrlQuery, string>
             cancellationToken: cancellationToken)
             .ConfigureAwait(false);
 
-        return await _client
+        return await client
             .LoginAsync(
             apiUrl: query.ApiUrl,
             partnerCode: query.PartnerCode,
