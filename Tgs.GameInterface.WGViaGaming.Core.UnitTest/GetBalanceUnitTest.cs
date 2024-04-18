@@ -12,188 +12,188 @@ namespace Tgs.GameInterface.WGViaGaming.Core.UnitTest;
 
 public class GetBalanceUnitTest
 {
-    [Fact]
-    public async Task Normal_Process()
-    {
-        var apiUrl = new Uri("http://localhost:8088/");
-        var partnerCode = "partnerCode";
-        var secretKey = "secretKey";
-        var secretIV = "secretIV";
-        var memberCode = "4ugse0rsnufp";
+	[Fact]
+	public async Task Normal_Process()
+	{
+		var apiUrl = new Uri("http://localhost:8088/");
+		var partnerCode = "partnerCode";
+		var secretKey = "secretKey";
+		var secretIV = "secretIV";
+		var memberCode = "4ugse0rsnufp";
 
-        var fakeCryptography = Substitute.For<IHashCryptography>();
-        var fakeSystemClock = Substitute.For<ISystemClock>();
+		var fakeCryptography = Substitute.For<IHashCryptography>();
+		var fakeSystemClock = Substitute.For<ISystemClock>();
 
-        var hash = "LPyNrrYzpDLHBShlTW59Ow==";
-        var data = memberCode;
+		var hash = "LPyNrrYzpDLHBShlTW59Ow==";
+		var data = memberCode;
 
-        _ = fakeCryptography.GetAesEncryptAsync(
-            data: Arg.Is(data),
-            secretKey: Arg.Is(secretKey),
-            secretIV: Arg.Is(secretIV),
-            cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(hash);
+		_ = fakeCryptography.GetAesEncryptAsync(
+			data: Arg.Is(data),
+			secretKey: Arg.Is(secretKey),
+			secretIV: Arg.Is(secretIV),
+			cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(hash);
 
-        var uriBuilder = new UriBuilder(new Uri(apiUrl, "/index.php"));
-        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-        query["m"] = "api";
-        query["c"] = "index";
-        query["a"] = "GetBalance";
-        query["Hash"] = hash;
-        query["PartnerCode"] = partnerCode;
-        uriBuilder.Query = query.ToString();
+		var uriBuilder = new UriBuilder(new Uri(apiUrl, "/index.php"));
+		var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+		query["m"] = "api";
+		query["c"] = "index";
+		query["a"] = "GetBalance";
+		query["Hash"] = hash;
+		query["PartnerCode"] = partnerCode;
+		uriBuilder.Query = query.ToString();
 
-        var response = new JsonObject
-        {
-            ["ReturnCode"] = 1,
-            ["Balance"] = "0.00",
-            ["Currency"] = "RMB"
-        };
+		var response = new JsonObject
+		{
+			["ReturnCode"] = 1,
+			["Balance"] = "0.00",
+			["Currency"] = "RMB"
+		};
 
-        var handler = new MockHttpMessageHandler();
-        _ = handler
-            .Expect(HttpMethod.Get, uriBuilder.ToString())
-            .Respond(HttpStatusCode.OK, new StringContent(response.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json));
+		var handler = new MockHttpMessageHandler();
+		_ = handler
+			.Expect(HttpMethod.Get, uriBuilder.ToString())
+			.Respond(HttpStatusCode.OK, new StringContent(response.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json));
 
-        var fakeHttpClient = handler.ToHttpClient();
-        var fakeLog = NullLogger<GameApiClient>.Instance;
+		var fakeHttpClient = handler.ToHttpClient();
+		var fakeLog = NullLogger<GameApiClient>.Instance;
 
-        var client = new GameApiClient(
-            fakeLog,
-            fakeCryptography,
-            fakeSystemClock,
-            fakeHttpClient);
+		var client = new GameApiClient(
+			fakeLog,
+			fakeCryptography,
+			fakeSystemClock,
+			fakeHttpClient);
 
-        var (IsPlayer, Balance) = await client.GetBalanceAsync(
-            apiUrl: apiUrl,
-            partnerCode: partnerCode,
-            secretKey: secretKey,
-            secretIV: secretIV,
-            memberCode: memberCode);
+		var (IsPlayer, Balance) = await client.GetBalanceAsync(
+			apiUrl: apiUrl,
+			partnerCode: partnerCode,
+			secretKey: secretKey,
+			secretIV: secretIV,
+			memberCode: memberCode);
 
-        Assert.True(IsPlayer);
-        Assert.Equal(0.00m, Balance);
-    }
+		Assert.True(IsPlayer);
+		Assert.Equal(0.00m, Balance);
+	}
 
-    [Fact]
-    public async Task Invalid_User()
-    {
-        var apiUrl = new Uri("http://localhost:8088/");
-        var partnerCode = "partnerCode";
-        var secretKey = "secretKey";
-        var secretIV = "secretIV";
-        var memberCode = "4ugse0rsnufp";
+	[Fact]
+	public async Task Invalid_User()
+	{
+		var apiUrl = new Uri("http://localhost:8088/");
+		var partnerCode = "partnerCode";
+		var secretKey = "secretKey";
+		var secretIV = "secretIV";
+		var memberCode = "4ugse0rsnufp";
 
-        var fakeCryptography = Substitute.For<IHashCryptography>();
-        var fakeSystemClock = Substitute.For<ISystemClock>();
+		var fakeCryptography = Substitute.For<IHashCryptography>();
+		var fakeSystemClock = Substitute.For<ISystemClock>();
 
-        var hash = "LPyNrrYzpDLHBShlTW59Ow==";
-        var data = memberCode;
+		var hash = "LPyNrrYzpDLHBShlTW59Ow==";
+		var data = memberCode;
 
-        _ = fakeCryptography
-            .GetAesEncryptAsync(
-            data: Arg.Is(data),
-            secretKey: Arg.Is(secretKey),
-            secretIV: Arg.Is(secretIV),
-            cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(hash);
+		_ = fakeCryptography
+			.GetAesEncryptAsync(
+			data: Arg.Is(data),
+			secretKey: Arg.Is(secretKey),
+			secretIV: Arg.Is(secretIV),
+			cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(hash);
 
-        var uriBuilder = new UriBuilder(new Uri(apiUrl, "/index.php"));
-        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-        query["m"] = "api";
-        query["c"] = "index";
-        query["a"] = "GetBalance";
-        query["Hash"] = hash;
-        query["PartnerCode"] = partnerCode;
-        uriBuilder.Query = query.ToString();
+		var uriBuilder = new UriBuilder(new Uri(apiUrl, "/index.php"));
+		var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+		query["m"] = "api";
+		query["c"] = "index";
+		query["a"] = "GetBalance";
+		query["Hash"] = hash;
+		query["PartnerCode"] = partnerCode;
+		uriBuilder.Query = query.ToString();
 
-        var response = new JsonObject
-        {
-            ["ReturnCode"] = 602
-        };
+		var response = new JsonObject
+		{
+			["ReturnCode"] = 602
+		};
 
-        var handler = new MockHttpMessageHandler();
-        _ = handler
-            .Expect(HttpMethod.Get, uriBuilder.ToString())
-            .Respond(HttpStatusCode.OK, new StringContent(response.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json));
+		var handler = new MockHttpMessageHandler();
+		_ = handler
+			.Expect(HttpMethod.Get, uriBuilder.ToString())
+			.Respond(HttpStatusCode.OK, new StringContent(response.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json));
 
-        var fakeHttpClient = handler.ToHttpClient();
-        var fakeLog = NullLogger<GameApiClient>.Instance;
+		var fakeHttpClient = handler.ToHttpClient();
+		var fakeLog = NullLogger<GameApiClient>.Instance;
 
-        var client = new GameApiClient(
-            fakeLog,
-            fakeCryptography,
-            fakeSystemClock,
-            fakeHttpClient);
+		var client = new GameApiClient(
+			fakeLog,
+			fakeCryptography,
+			fakeSystemClock,
+			fakeHttpClient);
 
-        var (IsPlayer, Balance) = await client.GetBalanceAsync(
-            apiUrl: apiUrl,
-            partnerCode: partnerCode,
-            secretKey: secretKey,
-            secretIV: secretIV,
-            memberCode: memberCode);
+		var (IsPlayer, Balance) = await client.GetBalanceAsync(
+			apiUrl: apiUrl,
+			partnerCode: partnerCode,
+			secretKey: secretKey,
+			secretIV: secretIV,
+			memberCode: memberCode);
 
-        Assert.False(IsPlayer);
-        Assert.Equal(0.00m, Balance);
-    }
+		Assert.False(IsPlayer);
+		Assert.Equal(0.00m, Balance);
+	}
 
-    [Fact]
-    public async Task Invalid_Hash()
-    {
-        var apiUrl = new Uri("http://localhost:8088/");
-        var partnerCode = "partnerCode";
-        var secretKey = "secretKey";
-        var secretIV = "secretIV";
-        var memberCode = "4ugse0rsnufp";
+	[Fact]
+	public async Task Invalid_Hash()
+	{
+		var apiUrl = new Uri("http://localhost:8088/");
+		var partnerCode = "partnerCode";
+		var secretKey = "secretKey";
+		var secretIV = "secretIV";
+		var memberCode = "4ugse0rsnufp";
 
-        var fakeCryptography = Substitute.For<IHashCryptography>();
-        var fakeSystemClock = Substitute.For<ISystemClock>();
+		var fakeCryptography = Substitute.For<IHashCryptography>();
+		var fakeSystemClock = Substitute.For<ISystemClock>();
 
-        var hash = "LPyNrrYzpDLHBShlTW59Ow==";
-        var data = memberCode;
+		var hash = "LPyNrrYzpDLHBShlTW59Ow==";
+		var data = memberCode;
 
-        _ = fakeCryptography.GetAesEncryptAsync(
-            data: Arg.Is(data),
-            secretKey: Arg.Is(secretKey),
-            secretIV: Arg.Is(secretIV),
-            cancellationToken: Arg.Any<CancellationToken>())
-            .Returns(hash);
+		_ = fakeCryptography.GetAesEncryptAsync(
+			data: Arg.Is(data),
+			secretKey: Arg.Is(secretKey),
+			secretIV: Arg.Is(secretIV),
+			cancellationToken: Arg.Any<CancellationToken>())
+			.Returns(hash);
 
-        var uriBuilder = new UriBuilder(new Uri(apiUrl, "/index.php"));
-        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
-        query["m"] = "api";
-        query["c"] = "index";
-        query["a"] = "GetBalance";
-        query["Hash"] = hash;
-        query["PartnerCode"] = partnerCode;
-        uriBuilder.Query = query.ToString();
+		var uriBuilder = new UriBuilder(new Uri(apiUrl, "/index.php"));
+		var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+		query["m"] = "api";
+		query["c"] = "index";
+		query["a"] = "GetBalance";
+		query["Hash"] = hash;
+		query["PartnerCode"] = partnerCode;
+		uriBuilder.Query = query.ToString();
 
-        var response = new JsonObject
-        {
-            ["ReturnCode"] = 601
-        };
+		var response = new JsonObject
+		{
+			["ReturnCode"] = 601
+		};
 
-        var handler = new MockHttpMessageHandler();
-        _ = handler
-            .Expect(HttpMethod.Get, uriBuilder.ToString())
-            .Respond(HttpStatusCode.OK, new StringContent(response.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json));
+		var handler = new MockHttpMessageHandler();
+		_ = handler
+			.Expect(HttpMethod.Get, uriBuilder.ToString())
+			.Respond(HttpStatusCode.OK, new StringContent(response.ToJsonString(), Encoding.UTF8, MediaTypeNames.Application.Json));
 
-        var fakeHttpClient = handler.ToHttpClient();
-        var fakeLog = NullLogger<GameApiClient>.Instance;
+		var fakeHttpClient = handler.ToHttpClient();
+		var fakeLog = NullLogger<GameApiClient>.Instance;
 
-        var client = new GameApiClient(
-            fakeLog,
-            fakeCryptography,
-            fakeSystemClock,
-            fakeHttpClient);
+		var client = new GameApiClient(
+			fakeLog,
+			fakeCryptography,
+			fakeSystemClock,
+			fakeHttpClient);
 
-        _ = await Assert.ThrowsAsync<ReturnCodeException>(
-            () => client.GetBalanceAsync(
-                apiUrl: apiUrl,
-                partnerCode: partnerCode,
-                secretKey: secretKey,
-                secretIV: secretIV,
-                memberCode: memberCode)
-            .AsTask());
-    }
+		_ = await Assert.ThrowsAsync<ReturnCodeException>(
+			() => client.GetBalanceAsync(
+				apiUrl: apiUrl,
+				partnerCode: partnerCode,
+				secretKey: secretKey,
+				secretIV: secretIV,
+				memberCode: memberCode)
+			.AsTask());
+	}
 }
