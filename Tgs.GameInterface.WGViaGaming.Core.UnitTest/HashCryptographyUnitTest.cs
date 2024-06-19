@@ -3,7 +3,7 @@
 public class HashCryptographyUnitTest
 {
 	[Fact]
-	public async void GetBalance()
+	public async Task GetBalance()
 	{
 		var cryptography = new HashCryptography();
 		string secretKey = "a888888888888888";
@@ -18,7 +18,7 @@ public class HashCryptographyUnitTest
 	}
 
 	[Fact]
-	public async void AccessMoneyDeposit()
+	public async Task AccessMoneyDeposit()
 	{
 		var cryptography = new HashCryptography();
 		string secretKey = "a888888888888888";
@@ -33,7 +33,7 @@ public class HashCryptographyUnitTest
 	}
 
 	[Fact]
-	public async void AccessMoneyWithdrawal()
+	public async Task AccessMoneyWithdrawal()
 	{
 		var cryptography = new HashCryptography();
 		string secretKey = "a888888888888888";
@@ -48,7 +48,7 @@ public class HashCryptographyUnitTest
 	}
 
 	[Fact]
-	public async void PrepareLogin()
+	public async Task PrepareLogin()
 	{
 		var cryptography = new HashCryptography();
 		string secretKey = "a888888888888888";
