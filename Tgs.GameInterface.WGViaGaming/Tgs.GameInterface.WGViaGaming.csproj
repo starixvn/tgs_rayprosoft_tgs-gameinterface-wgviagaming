@@ -13,10 +13,6 @@
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 		<NoWarn>$(NoWarn);1591;0063</NoWarn>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <None Remove="Protos\gameinterfacewgviagaming.proto" />
-	</ItemGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="FluentdForward.OpenTelemetry.MessagePack" Version="0.3.8" />
@@ -39,10 +35,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Tgs.GameInterface.WGViaGaming.Core\Tgs.GameInterface.WGViaGaming.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Protobuf Include="Protos\gameinterfacewgviagaming.proto" />
+		<ProjectReference Include="..\Tgs.GameInterface.WGViaGaming.Protos\Tgs.GameInterface.WGViaGaming.Protos.csproj" />
 	</ItemGroup>
 
 </Project>

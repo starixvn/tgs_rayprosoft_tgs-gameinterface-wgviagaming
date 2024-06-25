@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameInterface.WGViaGami
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameInterface.WGViaGaming.Core.UnitTest", "Tgs.GameInterface.WGViaGaming.Core.UnitTest\Tgs.GameInterface.WGViaGaming.Core.UnitTest.csproj", "{19D924FA-6677-4CFD-9E83-74CC70564181}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgs.GameInterface.WGViaGaming.Client", "Tgs.GameInterface.WGViaGaming.Client\Tgs.GameInterface.WGViaGaming.Client.csproj", "{981E85E3-0115-458F-BAB2-36F4254B7C70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tgs.GameInterface.WGViaGaming.Client", "Tgs.GameInterface.WGViaGaming.Client\Tgs.GameInterface.WGViaGaming.Client.csproj", "{981E85E3-0115-458F-BAB2-36F4254B7C70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tgs.GameInterface.WGViaGaming.Protos", "Tgs.GameInterface.WGViaGaming.Protos\Tgs.GameInterface.WGViaGaming.Protos.csproj", "{A0571CC4-2177-43B5-9C21-F7D502CECA2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{981E85E3-0115-458F-BAB2-36F4254B7C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{981E85E3-0115-458F-BAB2-36F4254B7C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{981E85E3-0115-458F-BAB2-36F4254B7C70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0571CC4-2177-43B5-9C21-F7D502CECA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0571CC4-2177-43B5-9C21-F7D502CECA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0571CC4-2177-43B5-9C21-F7D502CECA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0571CC4-2177-43B5-9C21-F7D502CECA2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
