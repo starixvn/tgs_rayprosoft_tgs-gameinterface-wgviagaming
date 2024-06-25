@@ -5,7 +5,7 @@ import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "Tgs.GameInterface.WGViaGaming.Protos";
 
-package gameinterfacewgviagaming;
+package GameInterfaceWGViaGaming;
 
 // The greeting service definition.
 service GameInterfaceWGViaGaming {
